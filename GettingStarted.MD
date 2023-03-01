@@ -45,10 +45,25 @@ Now we have a window, but it's empty.
 Let's add a scene to it.
 Scenes are your game's levels. They can be menus, levels or just a splash screen. These will hold all of your game's entities and components and logic.
 
-First let's create a main menu scene, we will call it MainMenuScene.py and place it inside a scenes folder and inside of it's own folder called MainMenuScene.
+First let's create a main menu scene, we will call it MainMenuScene.py and place it in a folder following this:
+```
+    Root Folder
+        |
+        |---Treengine
+        |---MyGame
+            |
+            |---Scenes
+                |
+                |---MainMenuScene
+                    |
+                    |---MainMenuScene.py
+        |---main.py
+        
+```
 (This is just a convention, you can name your folders and files however you want, but it's recommended to keep things organized. I also plan on creating a editor to help with this among other things)
 
 ### MainMenuScene.py
+________________________
 ```python
 '''
     Fist thing, We import the GameScene class from Treengine.Game.GameScene
@@ -63,10 +78,13 @@ from Treengine.Game.GameScene import GameScene
 
 class MainMenuScene(GameScene):
 
-    def __init__(self):
+        '''
+         we take the Game as a parameter so we can access it's properties and methods we also initialize the super class with a name for our scene
+        '''
 
-        super().__init__()
-
+    def __init__(self, game):
+        # The name of the scene is important, it will be used to switch between scenes and to identify the scene
+        super().__init__(game, "MainMenuScene")
         pass
 
     def on_enter(self):
@@ -88,7 +106,34 @@ class MainMenuScene(GameScene):
     def handle_events(self, events):
         super().handle_events(events)
         pass
-
 ```
 
+Now that we have a scene, we need to add it to our game.
+Back in our main.py file, we need to import our new scene and add it to our game. this can be done by adding the following lines of code to our main.py file.
+
+### main.py
+________________________
+```python
+from Treengine.Game.TreeGame import TreeGame
+
+# Import our new scene
+from MyGame.Scenes.MainMenuScene.MainMenuScene import MainMenuScene
+
+def main():
+
+    game = TreeGame()
+
+    # add a new instance of our scene to the game
+    game.add_scene(MainMenuScene(game))
+
+    # This on it's own will not do anything, we need to switch to our new scene, this is were the name we gave our scene comes in handy
+    game.switch_scene("MainMenuScene")
+
+    game.run()
+
+    pass
+
+
+if __name__ == "__main__":
+    main()
 ```

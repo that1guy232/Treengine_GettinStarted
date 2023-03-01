@@ -1,5 +1,8 @@
 from Treengine.Game.TreeGame import TreeGame
 
+# import the main menu scene
+from MyGame.Scenes.MainMenuScene.MainMenuScene import MainMenuScene
+
 
 def main():
     """
@@ -11,6 +14,13 @@ def main():
         Start the game loop
         This will run until the game is closed
     """
+
+    # add the main menu scene
+    game.add_scene(MainMenuScene(game))
+
+    # switch to the main menu scene right away
+    game.transition_to_scene("MainMenuScene")
+
     game.run()
     pass
 
