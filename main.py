@@ -3,6 +3,8 @@ from Treengine.Game.TreeGame import TreeGame
 # import the main menu scene
 from MyGame.Scenes.MainMenuScene.MainMenuScene import MainMenuScene
 
+from MyGame.Scenes.PlayScene.PlayScene import PlayScene
+
 
 def main():
     """
@@ -17,6 +19,7 @@ def main():
 
     # add the main menu scene
     game.add_scene(MainMenuScene(game))
+    game.add_scene(PlayScene(game))
 
     # switch to the main menu scene right away
     game.transition_to_scene("MainMenuScene")

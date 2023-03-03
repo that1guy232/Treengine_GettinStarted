@@ -1,21 +1,20 @@
-# Getting started.
+# Getting started
 
 [Click here for the link to the repository following this guide.](https://github.com/that1guy232/Treengine_GettinStarted)
-
 
 This guide will help you get started with Treengine. It will cover the basics of the engine and how to use it to create a simple window
 
 Are entry point will be the main.py file. This is where we will create our game instance and start the game loop.
 
-
 ### Main.py
+
 ```python
 
  '''
     First thing we need to do is import TreeGame from Treengine.Game.TreGame
-    
+
     This instance will be used to create our game window and start the game loop
-   
+
     It will also be used to manage our Game Scenes
     (If no scenes are added, the game will create a empty scene with nothing in it. More on this later)
 
@@ -46,6 +45,7 @@ Let's add a scene to it.
 Scenes are your game's levels. They can be menus, levels or just a splash screen. These will hold all of your game's entities and components and logic.
 
 First let's create a main menu scene, we will call it MainMenuScene.py and place it in a folder following this:
+
 ```
     Root Folder
         |
@@ -59,12 +59,15 @@ First let's create a main menu scene, we will call it MainMenuScene.py and place
         |   |   |   |---MainMenuScene.py
         |   |---Resources (More on this later)
         |---main.py
-        
+
 ```
+
 (This is just a convention, you can name your folders and files however you want, but it's recommended to keep things organized. I also plan on creating a editor to help with this among other things)
 
 ### MainMenuScene.py
-________________________
+
+---
+
 ```python
 '''
     Fist thing, We import the GameScene class from Treengine.Game.GameScene
@@ -113,7 +116,9 @@ Now that we have a scene, we need to add it to our game.
 Back in our main.py file, we need to import our new scene and add it to our game. this can be done by adding the following lines of code to our main.py file.
 
 ### main.py
-________________________
+
+---
+
 ```python
 from Treengine.Game.TreeGame import TreeGame
 
@@ -143,18 +148,21 @@ Now that's pretty boring, it's the same as before a empty scene. Let's add a bac
 This will introduce us to basic rendering of Textures and objects.
 
 For now are are game will be 800x600 pixels, so let's create a image that is 800x600 pixels and name it background.png and place it in the Resources folder under a Menu folder.
+
 ```
     |---Resources
     |   |---Menu
     |   |   |---background.png
 ```
 
-Now we need to import the Texture class from ``Treengine.GameRenderer.Renderable``.
+Now we need to import the Texture class from `Treengine.GameRenderer.Renderable`.
 
 We will also need to import pygame so we can load our image.
 
 ### MainMenuScene.py
-________________________
+
+---
+
 ```python
 # at the top of the file
 import pygame
@@ -164,7 +172,7 @@ from Treengine.GameRenderer.Renderable import Texture
 def __init__(self, game):
     super().__init__(game, "MainMenuScene")
     background_image = pygame.image.load("MyGame/Resources/Menu/background.png")
-    
+
     # The texuture class has a few parameters, x, y, width, height, and image, It also has a optional visible parameter that is set to True by default
     self.background = Texture(0, 0, background_image.get_width(), background_image.get_height(), background_image)
 
@@ -181,7 +189,9 @@ Let's add a exit button to our scene and a play button.
 Continuing in are constructor we will add the following lines of code.
 
 ### MainMenuScene.py
-________________________
+
+---
+
 ```python
 # import the button class from Treengine.UI at the top of your scene file
 from Treengine.UI.Button import Button
@@ -202,18 +212,52 @@ my_start_button = Button(
     50,
     (255, 0, 0),
     "Start",
-    lambda: game.transition_to_scene("GameScene"),
-) 
+    game.transition_to_scene("PlayScene"),
+)
 
-'''
+
+```
+
+Alterntivly:
+
+```python
+def start_game():
+    game.transition_to_scene("PlayScene")
+
+my_start_button = Button(
+    100,
+    0,
+    100,
+    50,
+    (255, 0, 0),
+    "Start",
+    start_game,
+)
+```
+
 Now we have a button that will change the scene to a scene called GameScene, If we do not have a scene called GameScene, it will throw an error when we try to switch to it.
+
 The error will look something like this:
 
     ERROR: Scene not found
-    Looking for scene: GameScene
+    Looking for scene: PlayScene
     Available scenes:
     MainMenuScene
-    
-'''
+
+### PlayScene.py
+
+- Scene Staes
+
+- Sprites
+
+- ECS
+
+- Tilemap ?
+
+Let's start to get a little more advanced and create a scene that will be used to play our game.
+
+
+```python
+
 
 ```

@@ -19,7 +19,6 @@ class MainMenuScene(GameScene):
             (255, 0, 0),
             "Exit",
             game.quit,
-            
         )
 
         self.add_UIWidget(my_exit_button)
@@ -31,7 +30,7 @@ class MainMenuScene(GameScene):
             50,
             (255, 0, 0),
             "Start",
-            lambda: game.transition_to_scene("GameScene"),
+            lambda: game.transition_to_scene("PlayScene"),
         )
 
         self.add_UIWidget(my_start_button)
