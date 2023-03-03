@@ -188,8 +188,6 @@ Let's add a exit button to our scene and a play button.
 
 Continuing in are constructor we will add the following lines of code.
 
-### MainMenuScene.py
-
 ---
 
 ```python
@@ -255,9 +253,86 @@ The error will look something like this:
 - Tilemap ?
 
 Let's start to get a little more advanced and create a scene that will be used to play our game.
+So we will need to create a new scene file and add it to our game.
 
+```
+    |---MyGame
+    |   |---Scenes
+    |   |   |
+    |   |   |---GameScene
+    |   |   |   |
+    |   |   |   |---GameScene.py
+```
+
+For now let's leave the `GameScene` a empty scene, we will add more to it later. (Make it like the `MainMenuScene.py` above)
+Don't forget to include the new scene in our `main.py` file.
+
+Let's also create are first `SceneState`. A `SceneState` is used too keep track of logic that is specific to a scene. For example, if we have a scene that is used to play a game, we will need to know when we are playing, paused or game overed. Think of these as mini scenes.
+
+Let's create a new `PlayingState.py` file in the GameScene folder.
+
+### PlayingState.py
 
 ```python
+from Treengine.Game.SceneState import SceneState
 
+class PlayingState(SceneState):
+    def __init__(self, scene):
+        super().__init__("PlayingState", scene)
+        pass
+
+    def on_enter(self):
+        super().on_enter()
+        pass
+
+    def on_exit(self):
+        super().on_exit()
+        pass
+
+    def update(self, dt):
+        super().update(dt)
+        pass
+
+    def handle_event(self, event):
+        super().handle_event(event)
+        pass
+
+    def draw(self):
+        super().draw()
+        pass
+    pass
+```
+
+This look's like are Scenes even with the same functions! That's because it is. A `SceneState` is a `Scene`. The only difference is that a `SceneState` is not a scene that can be switched to.
+
+It's a state, and we can have multiple states 'active' at the same time. For example, if we have a scene that is used to play a game, we can have a `PlayingState` and a `PausedState` active at the same time. This is useful for things like pausing the game, or having a menu open while the game is still running.
+
+I will go into more detail about `SceneStates` and `StateMachines` in a later.
+
+Now that we have a `SceneState` we need to add it to our `GameScene`. We will do this in the `GameScene`'s constructor.
+
+Back in `GameScene.py`
+
+```python
+# import the PlayingState class at the top of the file
+from MyGame.Scenes.PlayScene.PlayingState import PlayingState
+
+'''
+Now inside are consturctor let's create a new PlayingState.
+Once we have created a the state let's push it to the scene's state machine.
+We do this in the on_enter function otherwise the state will instantly pushed to the state machine calling it's on enter, even before the scene is entered!
+'''
+def __init__(self, game):
+    super().__init__(game, "GameScene")
+    self.playing_state = PlayingState(self)
+    pass
+
+def on_enter(self):
+    super().on_enter()
+    self.state_machine.push(self.playing_state)
+    pass
+```
+
+```
 
 ```
