@@ -51,12 +51,13 @@ First let's create a main menu scene, we will call it MainMenuScene.py and place
         |
         |---Treengine
         |---MyGame
-            |
-            |---Scenes
-                |
-                |---MainMenuScene
-                    |
-                    |---MainMenuScene.py
+        |   |
+        |   |---Scenes
+        |   |   |
+        |   |   |---MainMenuScene
+        |   |   |   |
+        |   |   |   |---MainMenuScene.py
+        |   |---Resources (More on this later)
         |---main.py
         
 ```
@@ -136,4 +137,83 @@ def main():
 
 if __name__ == "__main__":
     main()
+```
+
+Now that's pretty boring, it's the same as before a empty scene. Let's add a background to it.
+This will introduce us to basic rendering of Textures and objects.
+
+For now are are game will be 800x600 pixels, so let's create a image that is 800x600 pixels and name it background.png and place it in the Resources folder under a Menu folder.
+```
+    |---Resources
+    |   |---Menu
+    |   |   |---background.png
+```
+
+Now we need to import the Texture class from ``Treengine.GameRenderer.Renderable``.
+
+We will also need to import pygame so we can load our image.
+
+### MainMenuScene.py
+________________________
+```python
+# at the top of the file
+import pygame
+from Treengine.GameRenderer.Renderable import Texture
+
+# now inside are constructor we have to load the assest it's self than create a new Texture object and pass it the loaded image
+def __init__(self, game):
+    super().__init__(game, "MainMenuScene")
+    background_image = pygame.image.load("MyGame/Resources/Menu/background.png")
+    
+    # The texuture class has a few parameters, x, y, width, height, and image, It also has a optional visible parameter that is set to True by default
+    self.background = Texture(0, 0, background_image.get_width(), background_image.get_height(), background_image)
+
+    # we than append the texture to the scene's renderables list
+    self.renderables.append(self.background)
+
+    pass
+```
+
+The backgorund texture will now be rendered to the screen!
+
+Let's add a exit button to our scene and a play button.
+
+Continuing in are constructor we will add the following lines of code.
+
+### MainMenuScene.py
+________________________
+```python
+# import the button class from Treengine.UI at the top of your scene file
+from Treengine.UI.Button import Button
+
+# now back inside are constructor we will create a new exit button
+self.exit_button = Button(0, 0, 100, 50, "Exit", game.quit)
+# than we simply add it to the scene's UIWidgets list
+self.add_UIWidget(self.exit_button)
+
+# Now we have a function exit button. Let me explain a bit about the button before we move on.
+# The button class takes 5 parameters, x, y, width, height, text, and a function to call when the button is clicked.
+# so right now we are creating a button in the top left, with a width of 100 and a height of 50, with the text "Exit" and when it is clicked it will call the game.quit function(A function that is built into the game class that will close the application)
+
+my_start_button = Button(
+    100,
+    0,
+    100,
+    50,
+    (255, 0, 0),
+    "Start",
+    lambda: game.transition_to_scene("GameScene"),
+) 
+
+'''
+Now we have a button that will change the scene to a scene called GameScene, If we do not have a scene called GameScene, it will throw an error when we try to switch to it.
+The error will look something like this:
+
+    ERROR: Scene not found
+    Looking for scene: GameScene
+    Available scenes:
+    MainMenuScene
+    
+'''
+
 ```
