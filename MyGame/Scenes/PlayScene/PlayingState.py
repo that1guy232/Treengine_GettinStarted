@@ -1,10 +1,23 @@
 from Treengine.Game.SceneState import SceneState
+from Treengine.Game.Spritesheet import SpriteSheet
+import os
 
 
 class PlayingState(SceneState):
     def __init__(self, scene):
         super().__init__("PlayingState", scene)
-        pass
+
+        self.charater_sheet = SpriteSheet(
+            "MyGame\Resources\GameScene\kenney_pixelplatformer\Tilemap\\characters.png",
+            16,
+            1,
+        )
+
+        self.fist_tile = self.charater_sheet.get_tile(0, 0)
+
+        # self.scene.add_renderable(self.fist_tile)
+
+    pass
 
     def on_enter(self):
         print("PlayingState on_enter")

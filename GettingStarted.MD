@@ -333,6 +333,21 @@ def on_enter(self):
     pass
 ```
 
-```
+Now that we have a playing state and have pushed it to the state machine, we can start adding some stuff to it.
+We are going to use some assets from KennyNL's [Pixel Platformer](https://www.kenney.nl/assets/pixel-platformer) pack.
+
+Back inside are playing state let's load are sprite sheet from Kenny.
+
+
+### Playingstate.py
+```python
+# at the top of the file import the spritesheet class
+from Treengine.Resources.SpriteSheet import SpriteSheet
+
+# now inside are constructor let's load are sprite sheet, The arguments are the path to the file, the tile_size & the tile_spacing if you are folling along with the pixel platformer pack are parameters are as follows
+# we will name are sprite sheet "charater_sheet"
+self.charater_sheet = SpriteSheet("MyGame\Resources\GameScene\kenney_pixelplatformer\Tilemap\\characters.png",16,1)
+self.fist_tile = self.charater_sheet.get_tile(0, 0)
+
 
 ```
