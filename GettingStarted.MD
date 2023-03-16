@@ -103,8 +103,8 @@ class MainMenuScene(GameScene):
         super().update(delta_time)
         pass
 
-    def draw(self, screen):
-        super().render(screen)
+    def draw(self):
+        super().draw()
         pass
 
     def handle_events(self, events):
